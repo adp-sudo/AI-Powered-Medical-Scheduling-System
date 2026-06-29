@@ -3,23 +3,28 @@ from tools import lookup_patient
 from langchain_core.messages import HumanMessage
 from langchain_core.messages import ToolMessage
 
+#add tools to the llm object
+
 llm_with_tools = llm.bind_tools(
     [lookup_patient]
 )
 
+user_input = input("You: ")
+
+#the main prompt
+
 human_message = HumanMessage(
-    content="""
-Hi my name is Aayush Deshpande.
-I was born on 10/13/2005.
-Can you check if I am already registered?
-"""
+    content=user_input
 )
 
 response = llm_with_tools.invoke(
     [human_message]
 )
 
+#print(response)
 #print(response.tool_calls)
+
+
 
 tool_call = response.tool_calls[0]
 
@@ -27,7 +32,7 @@ tool_result = lookup_patient.invoke(
     tool_call["args"]
 )
 
-#print(tool_result)
+
 
 tool_message = ToolMessage(
 
@@ -45,4 +50,5 @@ final_response = llm_with_tools.invoke(
     ]
 )
 
-print(final_response.content)
+#print(final_response.content)
+print(tool_result)

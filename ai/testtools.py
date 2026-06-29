@@ -1,4 +1,4 @@
-from tools import lookup_patient
+from AI_Hospital_Scheduler.ai.tools import lookup_patient
 
 result = lookup_patient.invoke(
 
